@@ -125,6 +125,15 @@ describe "el camion y las cosas" {
     paqueteDeLadrillos.cantDeLadrillos(400)
     camion.cargar(paqueteDeLadrillos)
     assert.notThat(camion.puedeCircularEnRuta(20))
+
+    camion.descargar(bumblebee)
+    bumblebee.transformacion(robot)
+    camion.cargar(bumblebee)
+    assert.notThat(camion.puedeCircularEnRuta(20))
+  }
+
+  test "se agregaron mas cosas" {
+    
   }
 }
 
