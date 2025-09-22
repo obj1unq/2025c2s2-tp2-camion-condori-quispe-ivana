@@ -1,0 +1,24 @@
+import cosas.*
+import camion.*
+
+describe "el camion y las cosas" {
+  test "ejemploUno" {
+    //camion.cosas.clear() // nos aseguramos que esta vacio
+    camion.cargar(bumblebee)
+    assert.that(camion.cosas().contains(bumblebee))
+    assert.that(camion.cosas().size() == 1) // aca me aseguro que solo hay un elemento cargado
+
+    camion.cargar(knightRider)
+    assert.equals(camion.cosas(), #{bumblebee, knightRider}) // en vez de usar el size, me centro directamente en lo que hay dentro
+//2 me daba error -> y eso es porque no llame al getter correctamente y recordar que cuando comparas debe ser set == set 
+    camion.descargar(bumblebee)
+    assert.that(camion.cosas().size() == 1)
+
+    //camion.cargar(knightRider)
+    assert.throwsException({camion.cargar(knightRider)})
+    /*
+    Comprueba si un bloque genera una excepción. En caso contrario, se genera una excepción.
+    */
+    assert.throwsException({camion.descargar(bumblebee)})
+  }
+}

@@ -1,7 +1,7 @@
 import cosas.*
 
 object camion {
-	const property cosas = #{}
+	const property cosas = #{} //al usar property se crea automaticamente un getter (metodo para acceder al valor) y solo eso porque es un const
 		
 	method cargar(unaCosa) {
 		self.validarCarga(unaCosa)
@@ -35,6 +35,11 @@ method descargar(unaCosa) {
 	  if (not cosas.contains(unaCosa)){
 			self.error("No esta cargada en el camion")
 	  }
+	  
+	}
+
+	// todoPesoEsPar
+	method todoPesoEsPar() {
 	  
 	}
 }
