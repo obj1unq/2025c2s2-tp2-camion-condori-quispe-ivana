@@ -51,5 +51,16 @@ method descargar(unaCosa) {
 	method hayAlgunaCosaQuePesa(peso) {
 	  return self.cosas().any({cosa => cosa.peso() == peso})
 	}
+//
+	method pesoTotalDelCamion() {
+	  return 1000 + cosas.sum({cosa => cosa.peso()})
+	}
+	method excedioElpeso() {
+	  return self.pesoTotalDelCamion() > 2500
+	}
+// 
+	method elDeNivel(nivel) {
+	  return cosas.find({cosa => cosa.nivelPeligrosidad() == nivel})
+	}
 }
 

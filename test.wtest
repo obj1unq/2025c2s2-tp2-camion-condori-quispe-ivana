@@ -46,7 +46,50 @@ describe "el camion y las cosas" {
     assert.notThat(camion.hayAlgunaCosaQuePesa(500))
   }
 
-  
+  test "Peso y Exceso de Peso" {
+    //cargamos mas
+    camion.cargar(bumblebee)
+    paqueteDeLadrillos.cantDeLadrillos(300)
+    camion.cargar(paqueteDeLadrillos)
+
+    //preguntamos
+    assert.notThat(camion.excedioElpeso())
+    
+    //descagamos
+    camion.descargar(paqueteDeLadrillos)
+    //actualizamos
+    paqueteDeLadrillos.cantDeLadrillos(400)
+    camion.cargar(paqueteDeLadrillos)
+    assert.that(camion.excedioElpeso())
+  }
+
+  test "el de nivel" {
+    //cargamos bee con modo auto
+    bumblebee.transformacion(auto)
+    camion.cargar(bumblebee)
+    //cargamos bateria sin misiles
+    bateriaAntiaerea.equipo(sinMisiles)
+    camion.cargar(bateriaAntiaerea)
+    
+    camion.cargar(residuosRadiactivos)
+
+    //preguntamos
+    assert.equals(bateriaAntiaerea, camion.elDeNivel(0))
+    assert.equals(bumblebee, camion.elDeNivel(15))
+    assert.equals(residuosRadiactivos, camion.elDeNivel(200))
+    assert.throwsException({camion.elDeNivel(30)})
+
+    //cargamos bee con modo robot
+    camion.descargar(bumblebee)
+    bumblebee.transformacion(robot)
+    camion.cargar(bumblebee)
+    assert.equals(bumblebee, camion.elDeNivel(30))
+     
+    camion.descargar(bateriaAntiaerea) 
+    bateriaAntiaerea.equipo(misiles)
+    camion.cargar(bateriaAntiaerea)
+    assert.equals(bateriaAntiaerea, camion.elDeNivel(100))
+  }
 }
 
 /*
@@ -54,4 +97,15 @@ lineas para probar en la terminal
 camion.cargar(knightRider)
 camion.cargar(bumblebee)
 camion.todoPesoEsPar()
+
+APUNTES
+lanzaExceptionLike(excepción esperada, bloque)
+Prueba si un bloque lanza una excepción y si es la misma esperada.
+
+De lo contrario se lanza una excepción.
+throwsExceptionLike(exceptionExpected, block)
+
+Comprueba si un bloque genera una excepción. En caso contrario, se genera una excepción.
+throwsException(block)
+LINKAPUNTES : https://www.wollok.org/documentation/language/#wollok.lib.assert
 */

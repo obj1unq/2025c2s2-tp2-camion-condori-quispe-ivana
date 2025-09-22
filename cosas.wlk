@@ -61,7 +61,7 @@ object bateriaAntiaerea {
    method peso() {
 	 return equipo.peso()
    }
-   method nivelPeligrosidad() { equipo.nivelPeligrosidad() }
+   method nivelPeligrosidad() { return equipo.nivelPeligrosidad() }
 }
 object misiles {
   method peso(){ return 300 } 
