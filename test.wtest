@@ -276,13 +276,47 @@ method initialize(){
     camion.cargar(bumblebee)
     camion.cargar(arenaAGranel)
     }
-  test "caso 1" {
+  test "caso 1 ruta 9 exitoso" {
     assert.that(rutaNueve.soportaViajes())
 
     camion.transportar(almacen, rutaNueve)
     assert.equals(#{knightRider, residuosRadiactivos, bumblebee, arenaAGranel }, almacen.cosasDelAlmacen())
 
     assert.that(camion.cosas().size() == 0)
+  }
+  test "ruta 9 fallido por peligrosidad" {
+    bumblebee.transformacion(robot)
+    //camion.cargar(bumblebee)
+
+    assert.notThat(rutaNueve.soportaViajes())
+
+    assert.equals(#{knightRider, residuosRadiactivos }, almacen.cosasDelAlmacen())
+    assert.equals(#{bumblebee, arenaAGranel }, camion.cosas())
+
+  }
+  test "Caso: ruta 9 fallido por exceso de peso" {
+    arenaAGranel.peso(900)
+    assert.notThat(rutaNueve.soportaViajes())
+
+    assert.equals(#{knightRider, residuosRadiactivos }, almacen.cosasDelAlmacen())
+    assert.equals(#{bumblebee, arenaAGranel }, camion.cosas())
+  }
+  test "Caso: caminos vecinales exitoso" {
+    caminosVecinales.pesoMaximoPermitido(2000)
+    assert.that(caminosVecinales.soportaViajes())
+
+    camion.transportar(almacen, rutaNueve)
+    assert.equals(#{knightRider, residuosRadiactivos, bumblebee, arenaAGranel }, almacen.cosasDelAlmacen())
+
+    assert.that(camion.cosas().size() == 0)
+
+  }
+  test "Caso: caminos vecinales fallido" {
+    caminosVecinales.pesoMaximoPermitido(300)
+    assert.notThat(caminosVecinales.soportaViajes())
+
+    assert.equals(#{knightRider, residuosRadiactivos }, almacen.cosasDelAlmacen())
+    assert.equals(#{bumblebee, arenaAGranel }, camion.cosas())
   }
 }
 
