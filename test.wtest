@@ -90,6 +90,28 @@ describe "el camion y las cosas" {
     camion.cargar(bateriaAntiaerea)
     assert.equals(bateriaAntiaerea, camion.elDeNivel(100))
   }
+
+  test "Cosas Peligrosas" {
+    camion.cargar(knightRider)
+    bateriaAntiaerea.equipo(misiles)
+    camion.cargar(bateriaAntiaerea)
+
+    assert.equals(camion.cosasMasPeligrosasQueSuperan(15), #{bateriaAntiaerea})
+    assert.equals(camion.cosasMasPeligrosasQue(bumblebee), #{bateriaAntiaerea})
+    
+    camion.descargar(bateriaAntiaerea) 
+    bateriaAntiaerea.equipo(misiles)
+    camion.cargar(bateriaAntiaerea)
+    assert.equals(camion.cosasMasPeligrosasQueSuperan(2), #{knightRider, bateriaAntiaerea})
+    //revisar 
+
+    assert.equals(camion.cosasMasPeligrosasQue(paqueteDeLadrillos), #{bateriaAntiaerea, knightRider})
+    
+    assert.throwsException({camion.cosasMasPeligrosasQueSuperan(200)})
+
+    assert.throwsException({camion.cosasMasPeligrosasQue(residuosRadiactivos)})
+
+  }
 }
 
 /*

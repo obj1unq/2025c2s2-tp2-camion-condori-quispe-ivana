@@ -62,5 +62,16 @@ method descargar(unaCosa) {
 	method elDeNivel(nivel) {
 	  return cosas.find({cosa => cosa.nivelPeligrosidad() == nivel})
 	}
+//
+	method cosasMasPeligrosasQueSuperan(nivel) {
+	  return self.cosas().filter({cosa => cosa.nivelPeligrosidad() > nivel})
+	}
+
+	method cosasMasPeligrosasQue(cosa) {
+	  return self.cosasMasPeligrosasQueSuperan(cosa.nivelPeligrosidad())
+	}
+	method puedeCircularEnRuta() {
+	  
+	}
 }
 
