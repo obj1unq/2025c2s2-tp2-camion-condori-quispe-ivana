@@ -46,7 +46,7 @@ method descargar(unaCosa) {
 	}
 	method esPar(unPeso) {
 	  return unPeso % 2 == 0
-	}
+	} //nativo %(otro) Respuestas resto de la división entre yo y el otro
 //
 	method hayAlgunaCosaQuePesa(peso) {
 	  return self.cosas().any({cosa => cosa.peso() == peso})
@@ -73,8 +73,59 @@ method descargar(unaCosa) {
 	method puedeCircularEnRuta(nivelMaximo) {
 	  return (not self.excedioElpeso()) && (cosas.count({cosa => cosa.nivelPeligrosidad() > nivelMaximo}) == 0)
 	}
-	method name() {
-	  
+	method tieneAlgoQuePesaEntre_Y_(pesoUno, pesoDos) {
+	  return cosas.any({cosa => cosa.peso() >= pesoUno && cosa.peso() <= pesoDos})
 	}
+	method cosaMasPesada() {
+	  //var cosaMasPesada = cosas.map({cosa => cosa.nivelPeligrosidad()}).max()
+	  return cosas.find({cosa => cosa.peso() > cosas.map({cosa => cosa.nivelPeligrosidad()}).max()})
+	}
+	method pesosDeLasCosas() {
+	  return self.cosas().map({cosa => cosa.peso()}) //el map agarra un set y devuelve una lista
+	}
+//
+	method cantTotalDeBultos() {
+	return cosas.map({cosa => cosa.bultos()}).sum() 
+	}
+
+	method sufrirAccidente() {
+		cosas.forEach({unaCosa => unaCosa.sufreAccidente()})
+	  
+	}// que pasa aca? accion? si => osea las cosas del camion se modifican 
+	/*
+	que hace el foreach ? se usa para recorrer una colección 
+	y ejecutar una acción con cada elemento, sin devolver un resultado.
+
+	set.forEach({ elemento => elemento.hacerAlgo() })
+	lo uso cuando quiero hacer algo con cada elemento de una colección, 
+	pero no deseo construir una nueva colección ni obtener un resultado.
+	*/
+
+	method transportar(destino, camino) {
+	  if(camino.soportaViajes()){
+		destino.agregarAlAlmacen(cosas)
+		cosas.clear()
+	  }
+	}
+}
+
+object almacen {
+	var property cosasDelAlmacen = #{}
+    
+	method agregarAlAlmacen(nuevasCosas) {
+	  cosasDelAlmacen.addAll(nuevasCosas) // como es un set funciona como union
+
+	}
+}
+object rutaNueve {
+  method soportaViajes() {
+	return camion.puedeCircularEnRuta(20)
+  }
+}
+object caminosVecinales {
+  var property pesoMaximoPermitido = 0 
+  method soportaViajes() {
+	return camion.pesoTotalDelCamion() <= pesoMaximoPermitido
+  }
 }
 
