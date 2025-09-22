@@ -112,6 +112,20 @@ describe "el camion y las cosas" {
     assert.equals(camion.cosasMasPeligrosasQue(residuosRadiactivos), #{})
 
   }
+
+  test "Puede circular en la ruta" {
+    //cargamos
+    bumblebee.transformacion(auto)
+    camion.cargar(bumblebee)
+    paqueteDeLadrillos.cantDeLadrillos(300)
+    camion.cargar(paqueteDeLadrillos)
+    assert.that(camion.puedeCircularEnRuta(20))
+
+    camion.descargar(paqueteDeLadrillos)
+    paqueteDeLadrillos.cantDeLadrillos(400)
+    camion.cargar(paqueteDeLadrillos)
+    assert.notThat(camion.puedeCircularEnRuta(20))
+  }
 }
 
 /*
