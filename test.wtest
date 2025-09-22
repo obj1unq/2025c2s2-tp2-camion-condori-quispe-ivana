@@ -107,9 +107,9 @@ describe "el camion y las cosas" {
 
     assert.equals(camion.cosasMasPeligrosasQue(paqueteDeLadrillos), #{bateriaAntiaerea, knightRider})
     
-    assert.throwsException({camion.cosasMasPeligrosasQueSuperan(200)})
+    assert.equals(camion.cosasMasPeligrosasQueSuperan(200), #{})
 
-    assert.throwsException({camion.cosasMasPeligrosasQue(residuosRadiactivos)})
+    assert.equals(camion.cosasMasPeligrosasQue(residuosRadiactivos), #{})
 
   }
 }
