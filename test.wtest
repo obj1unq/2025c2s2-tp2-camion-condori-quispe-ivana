@@ -34,6 +34,18 @@ describe "el camion y las cosas" {
     assert.notThat(camion.todoPesoEsPar())  
   }
 
+  test "hay Alguno Que Pesa" {
+    //cargamos
+    camion.cargar(bumblebee)
+    assert.that(camion.cosas().contains(bumblebee))
+    arenaAGranel.peso(50)
+    camion.cargar(arenaAGranel)
+
+    assert.that(camion.hayAlgunaCosaQuePesa(50))
+    assert.that(camion.hayAlgunaCosaQuePesa(800))
+    assert.notThat(camion.hayAlgunaCosaQuePesa(500))
+  }
+
   
 }
 

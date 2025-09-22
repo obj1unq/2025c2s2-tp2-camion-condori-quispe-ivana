@@ -47,5 +47,9 @@ method descargar(unaCosa) {
 	method esPar(unPeso) {
 	  return unPeso % 2 == 0
 	}
+//
+	method hayAlgunaCosaQuePesa(peso) {
+	  return self.cosas().any({cosa => cosa.peso() == peso})
+	}
 }
 
