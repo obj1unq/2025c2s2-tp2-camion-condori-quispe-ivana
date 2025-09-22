@@ -70,8 +70,8 @@ method descargar(unaCosa) {
 	method cosasMasPeligrosasQue(cosa) {
 	  return self.cosasMasPeligrosasQueSuperan(cosa.nivelPeligrosidad())
 	}
-	method puedeCircularEnRuta() {
-	  
+	method puedeCircularEnRuta(nivelMaximo) {
+	  return self.excedioElpeso() && cosas.count({cosa => cosa.nivelPeligrosidad() > nivelMaximo}) == 0
 	}
 }
 
