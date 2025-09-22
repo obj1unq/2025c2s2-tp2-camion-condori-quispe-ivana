@@ -21,4 +21,25 @@ describe "el camion y las cosas" {
     */
     assert.throwsException({camion.descargar(bumblebee)})
   }
+
+  test "Todo peso es par" {
+    camion.cargar(bumblebee)
+    assert.that(camion.cosas().contains(bumblebee))
+    arenaAGranel.peso(50)
+    camion.cargar(arenaAGranel)
+    assert.that(camion.todoPesoEsPar())
+    camion.descargar(arenaAGranel)
+    arenaAGranel.peso(51)
+    camion.cargar(arenaAGranel)
+    assert.notThat(camion.todoPesoEsPar())  
+  }
+
+  
 }
+
+/*
+lineas para probar en la terminal
+camion.cargar(knightRider)
+camion.cargar(bumblebee)
+camion.todoPesoEsPar()
+*/

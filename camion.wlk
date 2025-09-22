@@ -2,7 +2,7 @@ import cosas.*
 
 object camion {
 	const property cosas = #{} //al usar property se crea automaticamente un getter (metodo para acceder al valor) y solo eso porque es un const
-		
+
 	method cargar(unaCosa) {
 		self.validarCarga(unaCosa)
 		cosas.add(unaCosa)
@@ -40,7 +40,12 @@ method descargar(unaCosa) {
 
 	// todoPesoEsPar
 	method todoPesoEsPar() {
-	  
+		// var pesos = self.cosas().map({cosa => cosa.peso()}) 
+		// pesos.all({peso => self.esPar(peso)})
+	  return self.cosas().all({cosa => self.esPar(cosa.peso())})
+	}
+	method esPar(unPeso) {
+	  return unPeso % 2 == 0
 	}
 }
 
